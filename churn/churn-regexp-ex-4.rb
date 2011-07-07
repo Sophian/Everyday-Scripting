@@ -2,11 +2,16 @@
 #name = "Bensaou, Sophian Tokio"
 
 def rearrange(name)
-  full_name = /(\w+), (\w+) (\w+)/.match(name)
-  last_name = full_name[1]
-  first_name = full_name[2]
-  middle_name = full_name[3]
-  middle_initial = /(\w)\w+/.match(middle_name)[1]
-  "#{first_name} #{middle_initial}. #{last_name}"
+  match = /(\w+), (\w+$|\w+\s\w+$)/.match(name)
+  last_name = match[1]
+  first_names = match[2].split(" ")
+  first_name = first_names[0]
+  middle_name = first_names[1]
+  
+  if middle_name.class == NilClass
+    "#{first_name} #{last_name}"
+    else "#{first_name} #{middle_name[0,1]}. #{last_name}"
+  end
+
 end
 
